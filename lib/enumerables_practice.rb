@@ -4,6 +4,15 @@ class Array
     self.length.times do |i|
       prc.call(self[i])
     end
+    self
+  end
+
+  def my_map(&prc)
+    output = []
+    self.my_each do |el|
+      output << prc.call(el)
+    end
+    output
   end
 
   def my_select(&prc)
@@ -30,5 +39,14 @@ class Array
       return true if prc.call(el) == true
     end
     false
+  end
+
+  def my_inject(&prc)
+
+    acc = self[0]
+    self[1..-1].each do |el|
+      acc = prc.call(acc, el)
+    end
+    acc
   end
 end
